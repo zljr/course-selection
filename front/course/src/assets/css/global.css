@@ -1,0 +1,19 @@
+*{
+
+    box-sizing: border-box;
+  
+    /* 都为盒模型 */
+  
+  }
+  
+  body{
+  
+    color: #333;
+  
+    font-size:14px;
+  
+    margin: 0;
+  
+    padding: 0;
+  
+  }
