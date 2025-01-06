@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div style="font-size: 30px;font-weight: bold;text-align: center;margin-bottom: 20px;">全部课表</div>
+      <div style="font-size: 30px;font-weight: bold;text-align: center;margin-bottom: 20px;">我的课表</div>
       <el-table :data="tableData" border>
         <el-table-column prop="timeSlot" label="时间段" width="180">
           <template slot-scope="scope">
@@ -65,7 +65,11 @@
         });
       },
       getData() {
-        this.$request.get('/course/getAllCourseTable').then(res => {
+        this.$request.get('/studentCourse/getCourseByStudent', {
+          params: {
+            studentId: this.user.id
+          }
+        }).then(res => {
           if (res.code === '200') {
             const data = res.data;
             const groupedBydayOfWeek = data.reduce((groups, item) => {
@@ -82,9 +86,9 @@
             this.$message.error(res.msg)
           }
         }).catch(err=>{
-        this.$message.error('请登录');
-        this.$router.push('/login')
-    })
+            this.$message.error('请登录');
+            this.$router.push('/login')
+        })
       },
       formatCourseInfo(course) {
         return `${course.courseName}<br>${course.classroom}<br>${course.teacher}`;

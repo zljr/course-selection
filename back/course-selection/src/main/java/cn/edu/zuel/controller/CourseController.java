@@ -6,8 +6,10 @@ import cn.edu.zuel.model.Course;
 import cn.edu.zuel.model.CourseDTO;
 import cn.edu.zuel.model.User;
 import cn.edu.zuel.service.CourseService;
+import cn.edu.zuel.service.StudentCourseService;
 import cn.edu.zuel.service.UserService;
 import cn.edu.zuel.utils.TokenUtils;
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
@@ -23,6 +25,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +39,8 @@ public class CourseController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private StudentCourseService studentCourseService;
     /*
     * 添加课程
     * */
@@ -61,6 +66,11 @@ public class CourseController {
     @GetMapping("/getAllCourses")
     public Result getAllCourses(@RequestParam Integer pageNum, @RequestParam Integer pageSize){
         PageInfo<CourseDTO> pageInfo=courseService.getAllCourses(pageNum,pageSize);
+        List<CourseDTO> list = pageInfo.getList();
+        for(CourseDTO li:list){
+            Integer count = studentCourseService.selectCountOfCourse(li.getCourseId());
+            li.setCount(count);
+        }
         return Result.success(pageInfo);
 
     }
@@ -233,5 +243,20 @@ public class CourseController {
         }
 
         return Result.success();
+    }
+    /*
+    * 查询老师所授课程的选课人数
+    * */
+    @GetMapping("/getEnrollCountByTeacher")
+    public Result getEnrollCountByTeacher(@RequestParam Integer id){
+        List<Dict> enrollCount=new ArrayList<>();
+        //获取该名教师所教授的课程
+        List<Course> courseByUserId = courseService.getCourseByUserId(id);
+        for(Course c:courseByUserId){
+            Dict dict = Dict.create();
+            Dict course=dict.set("课程名称",c.getCourseName()).set("总人数",studentCourseService.selectCountOfCourse(c.getCourseId()));
+            enrollCount.add(course);
+        }
+        return Result.success(enrollCount);
     }
 }

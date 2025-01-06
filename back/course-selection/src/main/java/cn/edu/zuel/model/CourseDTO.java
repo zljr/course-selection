@@ -21,4 +21,6 @@ public class CourseDTO {
     private String endTime;
     @Alias("上课教室")
     private String classroom;
+    @Alias("选课人数")
+    private Integer count;
 }

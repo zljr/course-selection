@@ -2,7 +2,6 @@ package cn.edu.zuel.mapper;
 
 import cn.edu.zuel.model.Course;
 import cn.edu.zuel.model.CourseDTO;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -25,5 +24,6 @@ public interface CourseMapper extends BaseMapper<Course> {
             "join coursetimetable ct on c.course_id=ct.course_id " +
             "join timeslots ts on ct.time_slot_id=ts.time_slot_id where u.id=#{id}")
     List<CourseDTO> getCourseByUser(Integer id);
+
 
 }

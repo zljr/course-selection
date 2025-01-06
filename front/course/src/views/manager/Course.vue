@@ -130,6 +130,9 @@ methods:{
         console.log(res.data)
         this.courses=res.data.records,
         this.total=res.data.total
+    }).catch(err=>{
+        this.$message.error('请登录');
+        this.$router.push('/login')
     })
     },
     handleCurrentChange(pageNum){

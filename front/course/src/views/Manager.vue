@@ -42,11 +42,11 @@
         <span slot="title">课程信息</span>
       </el-menu-item>
       <el-menu-item index="/allCourse">
-        <i class="el-icon-kecheng"></i>
+        <i class="el-icon-kechenggailan"></i>
         <span slot="title">全部课程</span>
       </el-menu-item>
       <el-menu-item index="/allCourseTable">
-        <i class="el-icon-kecheng"></i>
+        <i class="el-icon-kebiaoxinxi"></i>
         <span slot="title">全部课表</span>
       </el-menu-item>
       </el-submenu>
@@ -60,9 +60,26 @@
       <el-menu-item index="/myCourseTable" v-if="user.role === '教师'">
         <!-- 当且仅当标签为el-menu-item的时候，index属性才会生效 ,会跟defaule-active对应上-->
         
-        <i class="el-icon-kecheng"></i>
+        <i class="el-icon-kebiaoxinxi"></i>
         <span slot="title">我的课表</span>
       
+      </el-menu-item>
+      <el-menu-item index="/teacherCourseCount" v-if="user.role === '教师'">
+        <i class="el-icon-leijixuankerenshu"></i>
+        <span slot="title">选课人数</span>
+      
+      </el-menu-item>
+      <el-menu-item index="/enrolledCourse" v-if="user.role === '学生'"> 
+        <i class="el-icon-kecheng"></i>
+        <span slot="title">已选课程</span>
+      </el-menu-item>
+      <el-menu-item index="/toEnrollCourse" v-if="user.role === '学生'"> 
+        <i class="el-icon-keicon"></i>
+        <span slot="title">可选课程</span>
+      </el-menu-item>
+      <el-menu-item index="/studentCourseTable" v-if="user.role === '学生'"> 
+        <i class="el-icon-kebiaoxinxi"></i>
+        <span slot="title">我的课表</span>
       </el-menu-item>
     </el-menu>
  

@@ -14,7 +14,11 @@
                 <el-table-column label="上课时间" prop="startTime" sortable></el-table-column>
                 <el-table-column label="下课时间" prop="endTime"></el-table-column>
                 <el-table-column label="上课教室" prop="classroom" sortable></el-table-column>
-                <el-table-column label="选课人数" prop="count" sortable></el-table-column>
+                <el-table-column label="操作" align="center" width="180">
+                    <template v-slot="scope">
+                        <el-button type="primary" size="mini" plain @click="handleEnroll(scope.row)">选课</el-button>
+                    </template>
+                </el-table-column>
         </el-table>
         <div style="margin: 10px 0;">
             <el-pagination
@@ -33,9 +37,8 @@
 </template>
 
 <script>
-import request from '@/utils/request';
     export default {
-        name:'AllCourse',
+        name:'ToEnrollCourse',
         data(){
             return{
                 courses:[],
@@ -46,11 +49,25 @@ import request from '@/utils/request';
             }
         },
         methods:{
+        handleEnroll(row){
+            let studentCourse={
+                courseId:row.courseId,
+                studentId:this.user.id
+            };
+            this.$request.post('/studentCourse/add',studentCourse).then(res=>{
+                if(res.code === '200'){
+                    this.$message.success('选课成功');
+                    this.load()
+                }else{
+                    this.$message.error(res.msg)
+                }
+            })
+        },
             load(pageNum){
             if(pageNum){
                 this.pageNum=pageNum
             }
-            request.get('/course/getAllCourses',{
+            this.$request.get('/course/getAllCourses',{
             params:{
                 pageNum:this.pageNum,
                 pageSize:this.pageSize,
@@ -59,10 +76,10 @@ import request from '@/utils/request';
         console.log(res.data)
         this.courses=res.data.list,
         this.total=res.data.total
-    }).catch(err=>{
-        this.$message.error('请登录');
-        this.$router.push('/login')
-    })
+    }).catch(error=>{
+                    this.$message.error('请登录');
+                    this.$router.push('/login')
+                })
     },
     handleCurrentChange(pageNum){
         // this.pageNum=pageNum

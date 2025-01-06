@@ -86,7 +86,10 @@ export default {
         } else {
           this.$message.error(res.msg)
         }
-      })
+      }).catch(err=>{
+        this.$message.error('请登录');
+        this.$router.push('/login')
+    })
     },
     formatCourseInfo(course) {
       return `${course.courseName}<br>${course.classroom}`;

@@ -9,6 +9,7 @@ import VueRouter from 'vue-router'
 
 
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -90,6 +91,34 @@ const routes = [
                 name:'全部课表'
               },
               component:()=>import('../views/manager/AllCourseTable.vue')
+            },{
+              path:'enrolledCourse',
+              name:'enrolledCourse',
+              meta:{
+                name:'已选课程'
+              },
+              component:()=>import('../views/manager/EnrolledCourse.vue')
+            },{
+              path:'toEnrollCourse',
+              name:'toEnrollCourse',
+              meta:{
+                name:'可选课程',
+              },
+              component:()=>import('../views/manager/ToEnrollCourse.vue')
+            },{
+              path:'studentCourseTable',
+              name:'studentCourseTable',
+              meta:{
+                name:'我的课表'
+              },
+              component:()=>import('../views/manager/StudentCourseTable.vue')
+            },{
+              path:'teacherCourseCount',
+              name:'teacherCourseCount',
+              meta:{
+                name:'选课人数统计'
+              },
+              component:()=>import('../views/manager/TeacherCourseCount.vue')
             }
           ]
           },

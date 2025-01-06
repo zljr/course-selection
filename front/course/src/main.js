@@ -5,6 +5,10 @@ import '@/assets/css/global.css'
 import '@/assets/css/iconfont/iconfont.css'
 import '@/assets/css/info/iconfont.css'
 import '@/assets/css/courseInfo/iconfont.css'
+import '@/assets/css/courseTable/iconfont.css'
+import '@/assets/css/course/iconfont.css'
+import '@/assets/css/courseperson/iconfont.css'
+import '@/assets/css/selectCourse/iconfont.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 // 全局引入自己封装的request.js
