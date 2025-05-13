@@ -1,15 +1,11 @@
 package cn.edu.zuel.controller;
 
-import cn.edu.zuel.annotation.AuthAccess;
 import cn.edu.zuel.common.Result;
 import cn.edu.zuel.model.StudentCourse;
 import cn.edu.zuel.model.StudentCourseDTO;
-import cn.edu.zuel.model.User;
 import cn.edu.zuel.service.StudentCourseService;
 import cn.edu.zuel.service.UserService;
-import cn.edu.zuel.utils.TokenUtils;
 import cn.hutool.core.date.DateUtil;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
